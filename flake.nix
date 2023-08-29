@@ -24,12 +24,12 @@
         pkgs.mkShell {
           buildInputs = with pkgs; [
             flutter
-            jdk11
+            jdk17
             android.platform-tools
           ];
 
           ANDROID_HOME = "${android.androidsdk}/libexec/android-sdk";
-          JAVA_HOME = pkgs.jdk11;
+          JAVA_HOME = pkgs.jdk17;
           ANDROID_AVD_HOME = (toString ./.) + "/.android/avd";
         };
     });
