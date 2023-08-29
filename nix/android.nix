@@ -1,8 +1,11 @@
-{androidenv}:
+{
+  androidenv,
+  buildToolsVersions,
+}:
 androidenv.composeAndroidPackages {
   toolsVersion = "26.1.1";
   platformToolsVersion = "34.0.4";
-  buildToolsVersions = ["33.0.1"];
+  buildToolsVersions = buildToolsVersions;
   includeEmulator = false;
   platformVersions = ["33"];
   includeSources = false;

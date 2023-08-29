@@ -17,11 +17,12 @@
         config.allowUnfree = true;
         config.android_sdk.accept_license = true;
       };
+      buildToolsVersion = "33.0.1";
     in {
       devShells.default = let
-        android = pkgs.callPackage ./nix/android.nix {};
+        android = pkgs.callPackage ./nix/android.nix {buildToolsVersions = [buildToolsVersion];};
       in
-        pkgs.mkShell {
+        pkgs.mkShell rec {
           buildInputs = with pkgs; [
             flutter
             jdk17
@@ -31,6 +32,7 @@
           ANDROID_HOME = "${android.androidsdk}/libexec/android-sdk";
           JAVA_HOME = pkgs.jdk17;
           ANDROID_AVD_HOME = (toString ./.) + "/.android/avd";
+          GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_HOME}/build-tools/${buildToolsVersion}/aapt2";
         };
     });
 }
